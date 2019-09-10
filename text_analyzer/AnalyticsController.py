@@ -11,11 +11,6 @@ def textAnalyticsTrain():
 	trainService = TrainService.Train()
 	return trainService.train()
 
-@app.route('/api/v1/train/classification', methods = ['GET'])
-def tranIntentAndEntities():
-	trainService = TrainService.Train()
-	return trainService.trainClassifier('./data/data.json', './config_spacy.yml', './models/nlu')
-	
 @app.route('/api/v1/classify', methods = ['POST'])
 def analyseText():
 	text = request.get_json()

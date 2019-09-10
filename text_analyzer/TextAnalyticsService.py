@@ -29,13 +29,6 @@ class Classifier():
         predictions = classifier.predict(input_counts)
 
         return predictions
-
-    def classifyText(self, text):
-        model = joblib.load('/tmp/textclassification.joblib.pkl')
-        interpreter = Interpreter.load(model)
-        result = interpreter.parse(text)
-
-        return result
     
     def clean(self, input):
         list = []
@@ -64,14 +57,10 @@ class Classifier():
     def analyze(self, text):
 
         sentiments = {0 : "Negative", 1: "Positive"}
-        myModel = Classifier()
 
         textToClassify = text["data"][0]
-        classifiedText= myModel.classifyText(textToClassify)
 
         stringifiedtext = json.dumps(classifiedText)
-        classifiedText= json.loads(stringifiedtext)
-
 
         userText = text["data"]
         userText = myModel.clean(userText)
@@ -81,6 +70,5 @@ class Classifier():
 
         response = {}
         response["sentiment"] = sentiments[sentimentResult.item(0)]
-        response["classification"]= classifiedText
 
         return Response(json.dumps(response), mimetype='application/json')

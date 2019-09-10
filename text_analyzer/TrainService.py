@@ -80,18 +80,3 @@ class Train():
     myModel.train_model()
 
     return "Successfully trained sentiments dataset"
-  
-  def trainClassifier(self, data, configuration, model_dir):
-
-    myModel = Train()
-    myModel.train_classification(data, configuration, model_dir)
-    return "Successfully Trained entity and intent"
-
-  def train_classification(self, data, configuration, model_dir):
-
-    training_data = load_data(data)
-    trainer = Trainer(config.load(configuration))
-    trainer.train(training_data)
-    model_directory = trainer.persist(model_dir, fixed_model_name = 'models')# Storing sentiment file in tmp folder
-    trainedfilename = '/tmp/textclassification.joblib.pkl'
-    joblib.dump(model_directory, trainedfilename, compress = 9)
